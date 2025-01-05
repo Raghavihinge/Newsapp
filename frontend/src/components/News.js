@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Newspaper, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import Card from './Card';
 
 const News = () => {
@@ -33,7 +33,7 @@ const News = () => {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
+      <div className="flex items-center justify-center min-h-screen">
         <div className="bg-red-50 text-red-600 p-4 rounded-lg">
           <p>{error}</p>
         </div>
@@ -42,9 +42,8 @@ const News = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-    <br/><br/>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="px-4 py-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 w-full">
         {articles.map((article) => (
           <Card
             key={article._id}

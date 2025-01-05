@@ -17,7 +17,7 @@ const Card = ({ title, text, imageUrl, link }) => {
     return (
       <div
         onClick={handleClick}
-        className="bg-white rounded-lg shadow-md overflow-hidden transform transition hover:scale-90 cursor-pointer"
+        className="bg-white rounded-lg shadow-md overflow-hidden transform transition hover:scale-95 cursor-pointer"
       >
         <img src={imageUrl} alt={title} className="w-full h-48 object-cover" />
         <div className="p-4">

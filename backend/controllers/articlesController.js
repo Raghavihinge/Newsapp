@@ -1,29 +1,29 @@
-const express = require("express");
-const Article = require("../models/News");
+const Article = require("../models/Article");
 
-const router = express.Router();
-
-router.post("/create", async (req, res) => {
+// Create a new article
+const createArticle = async (req, res) => {
   try {
-    const { heading, image, description, date, time } = req.body;
-    const newArticle = new Article({ heading, image, description, date, time });
+    const { heading, image, description, link } = req.body;
+    const newArticle = new Article({ heading, image, description, link });
     await newArticle.save();
     res.status(201).json({ message: "Article created successfully", article: newArticle });
   } catch (error) {
     res.status(500).json({ message: "Error creating article", error: error.message });
   }
-});
+};
 
-router.get("/list", async (req, res) => {
+// Get all articles
+const getAllArticles = async (req, res) => {
   try {
     const articles = await Article.find();
     res.status(200).json(articles);
   } catch (error) {
     res.status(500).json({ message: "Error fetching articles", error: error.message });
   }
-});
+};
 
-router.get("/view/:id", async (req, res) => {
+// Get a single article by ID
+const getArticleById = async (req, res) => {
   try {
     const article = await Article.findById(req.params.id);
     if (!article) {
@@ -33,9 +33,10 @@ router.get("/view/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error fetching article", error: error.message });
   }
-});
+};
 
-router.put("/update/:id", async (req, res) => {
+// Update an article by ID
+const updateArticle = async (req, res) => {
   try {
     const { heading, image, description, date, time } = req.body;
     const updatedArticle = await Article.findByIdAndUpdate(
@@ -50,9 +51,10 @@ router.put("/update/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error updating article", error: error.message });
   }
-});
+};
 
-router.delete("/delete/:id", async (req, res) => {
+// Delete an article by ID
+const deleteArticle = async (req, res) => {
   try {
     const deletedArticle = await Article.findByIdAndDelete(req.params.id);
     if (!deletedArticle) {
@@ -62,6 +64,12 @@ router.delete("/delete/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error deleting article", error: error.message });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  createArticle,
+  getAllArticles,
+  getArticleById,
+  updateArticle,
+  deleteArticle,
+};
